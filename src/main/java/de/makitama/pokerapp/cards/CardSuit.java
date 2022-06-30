@@ -1,4 +1,4 @@
-package pokerapp;
+package de.makitama.pokerapp.cards;
 
 public enum CardSuit {
 	
