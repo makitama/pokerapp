@@ -26,7 +26,7 @@ class PairTest {
 
 	@Test
 	void isGetPairCardsCorrect() {
-		assertEquals(List.of(card3, card1), Pair.getPairCards(hand));
+		assertIterableEquals(Pair.getPairCards(hand), List.of(card1, card3));
 	}
 
 }

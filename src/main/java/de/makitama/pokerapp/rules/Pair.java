@@ -1,11 +1,9 @@
 package de.makitama.pokerapp.rules;
 
 import de.makitama.pokerapp.cards.Card;
+import de.makitama.pokerapp.services.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Pair {
 
@@ -16,17 +14,12 @@ public class Pair {
      */
 
     static boolean isPair(List<Card> hand) {
-        return hand.stream().mapToInt(card -> card.getValue().getRating()).distinct().count() == 4;
+        return Service.isDistinctCardValueEqualsToGivenAmount(hand,4);
+       // return hand.stream().mapToInt(card -> card.getValue().getRating()).distinct().count() == 4;
     }
 
     static List<Card> getPairCards(List<Card> hand) {
-
-        for(int i=1; i<hand.size(); i++){
-            if(hand.get(i).getValue() == hand.get(i-1).getValue()) {
-                return List.of(hand.get(i), hand.get(i-1));
-            }
-        }
-        return null;
+        return Service.getCardsWithDuplicatesValues(hand, 2);
     }
     //TODO ranked by cards not forming pair
 }
