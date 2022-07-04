@@ -6,14 +6,14 @@ import java.util.List;
 
 public class Rank {
 
-    private final Ranks type;
+    private final HandRankings type;
     private final List<Integer> ratings = new ArrayList<>();
 
     public static class RankBuilder {
-        private final Ranks type;
+        private final HandRankings type;
         private final List<Integer> ratings = new ArrayList<>();
 
-        public RankBuilder(Ranks type) {
+        public RankBuilder(HandRankings type) {
             this.type = type;
         }
 
@@ -32,15 +32,15 @@ public class Rank {
         this.ratings.addAll(rankBuilder.ratings);
     }
 
-    public static RankBuilder initiateRankingFor(Ranks type) {
+    public static RankBuilder initiateRankingFor(HandRankings type) {
         return new RankBuilder(type);
     }
 
     /**
      *
-     * @param rank - The Rank to be compared
-     * @return   0 => both Ranks are equal
-     *           1 => this object is ranked higher (aka is Winner)
+     * @param rank The Rank to be compared
+     * @return   0 => both Ranks are equal;
+     *           1 => this object is ranked higher (aka is Winner);
      *          -1 => argument Rank is ranked higher (aka is Winner)
      */
     public int compareTo(Rank rank) {

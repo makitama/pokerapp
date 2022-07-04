@@ -1,6 +1,6 @@
 package de.makitama.pokerapp.ranking;
 
-public enum Ranks {
+public enum HandRankings {
     HIGH_CARD(1),
     PAIR(2),
     TWO_PAIRS(3),
@@ -13,7 +13,7 @@ public enum Ranks {
 
     public final int rating;
 
-    Ranks(int rating) {
+    HandRankings(int rating) {
         this.rating = rating;
     }
 
