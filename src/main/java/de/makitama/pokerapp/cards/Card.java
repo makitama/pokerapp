@@ -2,8 +2,8 @@ package de.makitama.pokerapp.cards;
 
 public class Card {
 	
-	private CardSuit cardSuit;
-	private CardValue value;
+	private final CardSuit cardSuit;
+	private final CardValue value;
 	
 	
 	public Card(CardSuit cardSuit, CardValue value) {
@@ -19,4 +19,8 @@ public class Card {
 		return value;
 	}
 
+	@Override
+	public String toString() {
+		return "CardSuit: " + cardSuit + ", Value: " + value.getRating();
+	}
 }

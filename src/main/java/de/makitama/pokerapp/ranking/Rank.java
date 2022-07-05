@@ -74,4 +74,11 @@ public class Rank {
         return 0;
     }
 
+    public HandRankings getType() {
+        return type;
+    }
+
+    public List<Integer> getRatings() {
+        return ratings;
+    }
 }
