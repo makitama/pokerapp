@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Pair implements Rule{
+/**
+ * 2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the
+ * cards forming the pair.
+ * If these values are the same, the hands are ranked by the values of the cards not forming the pair,
+ * in decreasing order.
+ */
 
-    /*
-     * 2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the
-     * cards forming the pair.
-     * If these values are the same, the hands are ranked by the values of the cards not forming the pair,
-     * in decreasing order.
-     */
+public class Pair implements Rule{
 
     private final HandRankings handRanking = HandRankings.PAIR;
 

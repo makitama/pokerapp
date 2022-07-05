@@ -7,14 +7,15 @@ import de.makitama.pokerapp.ranking.Rank;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 3 cards of the same value, with the remaining 2 cards forming a pair.
+ * Ranked by the value of the 3 cards.
+ */
 public class FullHouse implements Rule{
 
     private final HandRankings handRanking = HandRankings.FULL_HOUSE;
 
-    /*
-     * 3 cards of the same value, with the remaining 2 cards forming a pair.
-     * Ranked by the value of the 3 cards.
-     */
+
 
     private boolean isPair(List<Card> hand) {
         //TODO

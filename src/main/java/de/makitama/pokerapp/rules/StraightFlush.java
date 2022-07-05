@@ -8,11 +8,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 5 cards of the same suit with consecutive values. Ranked by the highest card in the hand.
+ */
 public class StraightFlush implements Rule{
-
-    /*
-     * 5 cards of the same suit with consecutive values. Ranked by the highest card in the hand.
-     */
 
     public static boolean isStraightFlush(List<Card> hand) {
 

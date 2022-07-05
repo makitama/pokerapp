@@ -7,13 +7,12 @@ import de.makitama.pokerapp.ranking.Rank;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Hand contains 5 cards with consecutive values.
+ * Hands which both contain a straight are ranked by their highest card.
+ */
 public class Straight implements Rule{
 
-
-    /*
-     * Hand contains 5 cards with consecutive values.
-     * Hands which both contain a straight are ranked by their highest card.
-     */
     //TODO straight
 
     private final HandRankings handRanking = HandRankings.STRAIGHT;

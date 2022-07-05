@@ -9,12 +9,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Hand contains 5 cards of the same suit.
+ * Hands which are both flushes are ranked using the rules for High Card.
+ */
 public class Flush implements Rule{
 
-    /*
-     * Hand contains 5 cards of the same suit.
-     * Hands which are both flushes are ranked using the rules for High Card.
-     */
     private final HandRankings handRanking = HandRankings.FLUSH;
 
     public static boolean isFlush(List<Card> hand) {

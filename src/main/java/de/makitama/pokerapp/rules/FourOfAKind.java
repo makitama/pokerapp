@@ -10,13 +10,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 4 cards with the same value. Ranked by the value of the 4 cards.
+ */
 public class FourOfAKind implements Rule{
 
     private final HandRankings handRanking = HandRankings.FOUR_OF_A_KIND;
 
-    /*
-     * 4 cards with the same value. Ranked by the value of the 4 cards.
-     */
+
 
     public static boolean isFourOfAKind(List<Card> hand) {
         return Service.isDistinctCardValueEqualsToGivenAmount(hand, 2);
