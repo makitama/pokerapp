@@ -7,7 +7,6 @@ import de.makitama.pokerapp.services.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * 2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the
@@ -16,35 +15,35 @@ import java.util.stream.Collectors;
  * in decreasing order.
  */
 
-public class Pair implements Rule{
+public class Pair implements Rule {
 
     private final HandRankings handRanking = HandRankings.PAIR;
 
     static boolean isPair(List<Card> hand) {
-        return Service.isDistinctCardValueEqualsToGivenAmount(hand,4);
-       // return hand.stream().mapToInt(card -> card.getValue().getRating()).distinct().count() == 4;
+        return Service.isDistinctCardValueEqualsToGivenAmount(hand, 4);
+        // return hand.stream().mapToInt(card -> card.getValue().getRating()).distinct().count() == 4;
     }
 
-
     static List<Card> getPairCards(List<Card> hand) {
-       return Service.getCardsWithDuplicatesValues(hand, 2);
+        return Service.getCardsWithDuplicatesValues(hand, 2);
     }
 
     private int getValueOfPair(List<Card> pairCards) {
         return pairCards.stream().mapToInt(card -> card.getValue().getRating()).sum();
     }
 
-
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        if(isPair(hand)) {
-            Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-            List<Card> pairCards = getPairCards(hand);
-            rankBuilder.addRating(getValueOfPair(pairCards));
-            Service.reverseCards(hand).stream().filter(card -> !pairCards.contains(card))
-                    .forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
-            return Optional.of(rankBuilder.build());
+        if (!isPair(hand)) {
+            return Optional.empty();
         }
-        return Optional.empty();
+
+        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
+        List<Card> pairCards = getPairCards(hand);
+        rankBuilder.addRating(getValueOfPair(pairCards));
+        Service.reverseCards(hand).stream().filter(card -> !pairCards.contains(card))
+                .forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
+
+        return Optional.of(rankBuilder.build());
     }
 }

@@ -14,14 +14,14 @@ public class Service {
 
     public static List<Card> getCardsWithDuplicatesValues(List<Card> hand, int amount) {
         List<Card> duplicates = new ArrayList<>();
-        for(int i=1; i<hand.size(); i++) {
-            if(hand.get(i-1).getValue() == hand.get(i).getValue()) {
-                if(duplicates.isEmpty()) {
+        for (int i = 1; i < hand.size(); i++) {
+            if (hand.get(i - 1).getValue() == hand.get(i).getValue()) {
+                if (duplicates.isEmpty()) {
                     duplicates.add(hand.get(i - 1));
                 }
                 duplicates.add(hand.get(i));
             }
-            if(duplicates.size() == amount) {
+            if (duplicates.size() == amount) {
                 return duplicates;
             }
         }

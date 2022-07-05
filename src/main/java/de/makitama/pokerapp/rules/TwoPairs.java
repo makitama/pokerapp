@@ -12,7 +12,7 @@ import java.util.Optional;
  * other pair. If these values are the same the hands are ranked
  * by the value of the remaining card.
  */
-public class TwoPairs implements Rule{
+public class TwoPairs implements Rule {
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {

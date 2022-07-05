@@ -11,23 +11,21 @@ import java.util.Optional;
  * Hand contains 5 cards with consecutive values.
  * Hands which both contain a straight are ranked by their highest card.
  */
-public class Straight implements Rule{
+public class Straight implements Rule {
 
     //TODO straight
 
     private final HandRankings handRanking = HandRankings.STRAIGHT;
 
     private boolean isStraight(List<Card> hand) {
-      //TODO
+        //TODO
         return false;
     }
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        if(isStraight(hand)) {
-            Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-            //TODO
-            return Optional.of(rankBuilder.build());
+        if (!isStraight(hand)) {
+            return Optional.empty();
         }
         return Optional.empty();
     }

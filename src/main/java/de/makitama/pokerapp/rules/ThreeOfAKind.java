@@ -8,7 +8,7 @@ import de.makitama.pokerapp.services.Service;
 import java.util.List;
 import java.util.Optional;
 
-public class ThreeOfAKind implements Rule{
+public class ThreeOfAKind implements Rule {
 
     private final HandRankings handRanking = HandRankings.THREE_OF_A_KIND;
 
@@ -29,11 +29,11 @@ public class ThreeOfAKind implements Rule{
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        if(isThreeOfAKind(hand)) {
-            Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-            rankBuilder.addRating(getValueOfTriple(hand));
-            return Optional.of(rankBuilder.build());
+        if (!isThreeOfAKind(hand)) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
+        rankBuilder.addRating(getValueOfTriple(hand));
+        return Optional.of(rankBuilder.build());
     }
 }

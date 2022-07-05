@@ -12,7 +12,7 @@ import java.util.Optional;
  * Hand contains 5 cards of the same suit.
  * Hands which are both flushes are ranked using the rules for High Card.
  */
-public class Flush implements Rule{
+public class Flush implements Rule {
 
     private final HandRankings handRanking = HandRankings.FLUSH;
 
@@ -23,14 +23,12 @@ public class Flush implements Rule{
     @Override
     public Optional<Rank> rank(List<Card> hand) {
 
-        if(isFlush(hand)) {
-            Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-            Service.reverseCards(hand).forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
-
-            return Optional.of(rankBuilder.build());
+        if (!isFlush(hand)) {
+            return Optional.empty();
         }
-
-        return Optional.empty();
+        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
+        Service.reverseCards(hand).forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
+        return Optional.of(rankBuilder.build());
 
     }
 

@@ -25,6 +25,8 @@ class FlushTest {
     Card card5 = new Card(CardSuit.C, CardValue._3);
 
     private final List<Card> hand = List.of(card2, card5, card1, card3, card4);
+    @Mock
+    Rank rank;
 
     @Test
     void flushShouldBeFound() {
@@ -33,14 +35,10 @@ class FlushTest {
 
     @Test
     void flushShouldNotBeFound() {
-        card3 =new Card(CardSuit.D, CardValue._8);
+        card3 = new Card(CardSuit.D, CardValue._8);
         List<Card> hand = List.of(card2, card5, card1, card3, card4);
         assertFalse(Flush.isFlush(hand));
     }
-
-
-    @Mock
-    Rank rank;
 
     @Test
     void testRank() {

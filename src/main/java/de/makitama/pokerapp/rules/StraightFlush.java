@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * 5 cards of the same suit with consecutive values. Ranked by the highest card in the hand.
  */
-public class StraightFlush implements Rule{
+public class StraightFlush implements Rule {
 
     public static boolean isStraightFlush(List<Card> hand) {
 
@@ -25,9 +25,9 @@ public class StraightFlush implements Rule{
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        if(isStraightFlush(hand)) {
-            //TODO
+        if (!isStraightFlush(hand)) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        //TODO
     }
 }

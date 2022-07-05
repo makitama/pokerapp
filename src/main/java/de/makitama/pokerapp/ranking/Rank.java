@@ -9,25 +9,7 @@ public class Rank {
     private final HandRankings type;
     private final List<Integer> ratings = new ArrayList<>();
 
-    public static class RankBuilder {
-        private final HandRankings type;
-        private final List<Integer> ratings = new ArrayList<>();
-
-        public RankBuilder(HandRankings type) {
-            this.type = type;
-        }
-
-        public RankBuilder addRating(int rating) {
-            ratings.add(rating);
-            return this;
-        }
-
-        public Rank build() {
-            return new Rank (this);
-        }
-    }
-
-    private Rank (RankBuilder rankBuilder) {
+    private Rank(RankBuilder rankBuilder) {
         this.type = rankBuilder.type;
         this.ratings.addAll(rankBuilder.ratings);
     }
@@ -37,15 +19,14 @@ public class Rank {
     }
 
     /**
-     *
      * @param rank The Rank to be compared
-     * @return   0 => both Ranks are equal;
-     *           1 => this object is ranked higher (aka is Winner);
-     *          -1 => argument Rank is ranked higher (aka is Winner)
+     * @return 0 => both Ranks are equal;
+     * 1 => this object is ranked higher (aka is Winner);
+     * -1 => argument Rank is ranked higher (aka is Winner)
      */
     public int compareTo(Rank rank) {
         int winnerOfType = compareRanks(rank);
-        if(winnerOfType == 0) {
+        if (winnerOfType == 0) {
             return compareValues(rank);
         }
         return winnerOfType;
@@ -80,5 +61,23 @@ public class Rank {
 
     public List<Integer> getRatings() {
         return ratings;
+    }
+
+    public static class RankBuilder {
+        private final HandRankings type;
+        private final List<Integer> ratings = new ArrayList<>();
+
+        public RankBuilder(HandRankings type) {
+            this.type = type;
+        }
+
+        public RankBuilder addRating(int rating) {
+            ratings.add(rating);
+            return this;
+        }
+
+        public Rank build() {
+            return new Rank(this);
+        }
     }
 }

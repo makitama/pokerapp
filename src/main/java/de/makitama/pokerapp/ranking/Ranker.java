@@ -3,7 +3,9 @@ package de.makitama.pokerapp.ranking;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.rules.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 public class Ranker {
 
@@ -25,7 +27,7 @@ public class Ranker {
         Rank rankHand1 = rankHand(hand1);
         Rank rankHand2 = rankHand(hand2);
 
-        int winner =  rankHand1.compareTo(rankHand2);
+        int winner = rankHand1.compareTo(rankHand2);
         String equal = "Both Hands are of equal worth";
         String firstHand = "First hand is winner! " + hand1.toString() + ", with Rank: " + rankHand1.getType();
         String secondHand = "Second hand is winner! " + hand2.toString() + ", with Rank: " + rankHand2.getType();
@@ -33,23 +35,21 @@ public class Ranker {
     }
 
     /**
-     *
      * @param hand hand that should be ranked
      * @return the highest possible Ranking for this specific hand of Cards, by applying the highest Rule that is possible.
      */
-   private Rank rankHand(List<Card> hand) {
+    private Rank rankHand(List<Card> hand) {
 
         Ranker ranker = new Ranker();
         HandRankings[] values = HandRankings.values();
-        for(int i=values.length -1; i>= 0; i--) {
+        for (int i = values.length - 1; i >= 0; i--) {
             Optional<Rank> rank = ranker.rules.get(values[i]).rank(hand);
-            if(rank.isPresent()) {
+            if (rank.isPresent()) {
                 return rank.get();
             }
         }
         throw new IllegalArgumentException("Something went terribly wrong. No Rule could be applied!");
     }
-
 
 
 }
