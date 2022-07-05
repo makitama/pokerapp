@@ -27,7 +27,8 @@ public class Straight implements Rule {
         if (!isStraight(hand)) {
             return Optional.empty();
         }
-        return Optional.empty();
+        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
+        return Optional.of(rankBuilder.build());
     }
 
 }

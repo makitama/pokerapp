@@ -3,7 +3,7 @@ package de.makitama.pokerapp.rules;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
-import de.makitama.pokerapp.services.Service;
+import de.makitama.pokerapp.services.RankingUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +19,11 @@ public class ThreeOfAKind implements Rule {
     //TODO ThreeOfAKind RankingService
 
     public static boolean isThreeOfAKind(List<Card> hand) {
-        return Service.isDistinctCardValueEqualsToGivenAmount(hand, 3);
+        return RankingUtils.isDistinctCardValueEqualsToGivenAmount(hand, 3);
     }
 
     public static int getValueOfTriple(List<Card> hand) {
-        List<Card> tripleCards = Service.getCardsWithDuplicatesValues(hand, 3);
+        List<Card> tripleCards = RankingUtils.getCardsWithDuplicateValues(hand, 3);
         return tripleCards.stream().mapToInt(card -> card.getValue().getRating()).sum();
     }
 

@@ -3,7 +3,7 @@ package de.makitama.pokerapp.rules;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
-import de.makitama.pokerapp.services.Service;
+import de.makitama.pokerapp.services.RankingUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +27,7 @@ public class Flush implements Rule {
             return Optional.empty();
         }
         Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-        Service.reverseCards(hand).forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
+        RankingUtils.reverseCards(hand).forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
         return Optional.of(rankBuilder.build());
 
     }

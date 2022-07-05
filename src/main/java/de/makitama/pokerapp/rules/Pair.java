@@ -3,7 +3,7 @@ package de.makitama.pokerapp.rules;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
-import de.makitama.pokerapp.services.Service;
+import de.makitama.pokerapp.services.RankingUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +20,11 @@ public class Pair implements Rule {
     private final HandRankings handRanking = HandRankings.PAIR;
 
     static boolean isPair(List<Card> hand) {
-        return Service.isDistinctCardValueEqualsToGivenAmount(hand, 4);
-        // return hand.stream().mapToInt(card -> card.getValue().getRating()).distinct().count() == 4;
+        return RankingUtils.isDistinctCardValueEqualsToGivenAmount(hand, 4);
     }
 
     static List<Card> getPairCards(List<Card> hand) {
-        return Service.getCardsWithDuplicatesValues(hand, 2);
+        return RankingUtils.getCardsWithDuplicateValues(hand, 2);
     }
 
     private int getValueOfPair(List<Card> pairCards) {
@@ -41,7 +40,7 @@ public class Pair implements Rule {
         Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
         List<Card> pairCards = getPairCards(hand);
         rankBuilder.addRating(getValueOfPair(pairCards));
-        Service.reverseCards(hand).stream().filter(card -> !pairCards.contains(card))
+        RankingUtils.reverseCards(hand).stream().filter(card -> !pairCards.contains(card))
                 .forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
 
         return Optional.of(rankBuilder.build());

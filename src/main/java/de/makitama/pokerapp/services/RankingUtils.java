@@ -6,18 +6,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Service {
+public final class RankingUtils {
 
     public static boolean isDistinctCardValueEqualsToGivenAmount(List<Card> hand, int amount) {
         return hand.stream().mapToInt(card -> card.getValue().getRating()).distinct().count() == amount;
     }
 
-    public static List<Card> getCardsWithDuplicatesValues(List<Card> hand, int amount) {
+    public static List<Card> getCardsWithDuplicateValues(List<Card> hand, int amount) {
         List<Card> duplicates = new ArrayList<>();
         for (int i = 1; i < hand.size(); i++) {
             if (hand.get(i - 1).getValue() == hand.get(i).getValue()) {
                 if (duplicates.isEmpty()) {
                     duplicates.add(hand.get(i - 1));
+                }
+                if (!duplicates.contains(hand.get(i))) {
+                    duplicates.clear();
                 }
                 duplicates.add(hand.get(i));
             }

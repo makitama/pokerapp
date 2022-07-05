@@ -20,7 +20,6 @@ public class FullHouse implements Rule {
         return false;
     }
 
-
     @Override
     public Optional<Rank> rank(List<Card> hand) {
         Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
