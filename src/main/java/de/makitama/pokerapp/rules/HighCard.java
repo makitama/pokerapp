@@ -8,6 +8,7 @@ import java.util.Optional;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
+import de.makitama.pokerapp.services.Service;
 
 /**
  * Hands which do not fit any higher category are ranked by the value of their highest card.
@@ -26,8 +27,7 @@ public class HighCard implements Rule{
 	@Override
 	public Optional<Rank> rank(List<Card> hand) {
 		Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-		Collections.reverse(hand);
-		hand.forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
+		Service.reverseCards(hand).forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
 
 		return Optional.of(rankBuilder.build());
 	}

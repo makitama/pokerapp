@@ -3,6 +3,7 @@ package de.makitama.pokerapp.services;
 import de.makitama.pokerapp.cards.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Service {
@@ -25,6 +26,12 @@ public class Service {
             }
         }
         return duplicates;
+    }
+
+    public static List<Card> reverseCards(List<Card> hand) {
+        List<Card> newHand = new ArrayList<>(hand);
+        Collections.reverse(newHand);
+        return newHand;
     }
 
 }

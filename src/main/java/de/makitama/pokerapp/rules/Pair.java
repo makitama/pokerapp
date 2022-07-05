@@ -41,7 +41,7 @@ public class Pair implements Rule{
             Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
             List<Card> pairCards = getPairCards(hand);
             rankBuilder.addRating(getValueOfPair(pairCards));
-            hand.stream().filter(card -> !pairCards.contains(card)).toList()
+            Service.reverseCards(hand).stream().filter(card -> !pairCards.contains(card))
                     .forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
             return Optional.of(rankBuilder.build());
         }
