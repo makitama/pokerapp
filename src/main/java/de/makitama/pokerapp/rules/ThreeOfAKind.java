@@ -1,11 +1,16 @@
 package de.makitama.pokerapp.rules;
 
 import de.makitama.pokerapp.cards.Card;
+import de.makitama.pokerapp.ranking.HandRankings;
+import de.makitama.pokerapp.ranking.Rank;
 import de.makitama.pokerapp.services.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-public class ThreeOfAKind {
+public class ThreeOfAKind implements Rule{
+
+    private final HandRankings handRanking = HandRankings.THREE_OF_A_KIND;
 
     /*
      * Three of the cards in the hand have the same value.
@@ -17,8 +22,18 @@ public class ThreeOfAKind {
         return Service.isDistinctCardValueEqualsToGivenAmount(hand, 3);
     }
 
-    public static List<Card> getValueOfTriple(List<Card> hand) {
-        return Service.getCardsWithDuplicatesValues(hand, 3);
+    public static int getValueOfTriple(List<Card> hand) {
+        List<Card> tripleCards = Service.getCardsWithDuplicatesValues(hand, 3);
+        return tripleCards.stream().mapToInt(card -> card.getValue().getRating()).sum();
     }
 
+    @Override
+    public Optional<Rank> rank(List<Card> hand) {
+        if(isThreeOfAKind(hand)) {
+            Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
+            rankBuilder.addRating(getValueOfTriple(hand));
+            return Optional.of(rankBuilder.build());
+        }
+        return Optional.empty();
+    }
 }
