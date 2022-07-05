@@ -5,8 +5,6 @@ import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
 import de.makitama.pokerapp.services.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +17,7 @@ public class Flush implements Rule{
     private final HandRankings handRanking = HandRankings.FLUSH;
 
     public static boolean isFlush(List<Card> hand) {
-        return hand.isEmpty() || hand.stream().map(Card::getCardSuit).distinct().count() <= 1;
+        return hand.isEmpty() || hand.stream().map(Card::getSuit).distinct().count() <= 1;
     }
 
     @Override

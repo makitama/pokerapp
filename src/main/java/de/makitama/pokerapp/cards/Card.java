@@ -11,7 +11,7 @@ public class Card {
 		this.value = value;
 	}
 	
-	public CardSuit getCardSuit() {
+	public CardSuit getSuit() {
 		return cardSuit;
 	}
 	
