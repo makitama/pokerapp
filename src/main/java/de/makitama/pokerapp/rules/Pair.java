@@ -1,11 +1,13 @@
 package de.makitama.pokerapp.rules;
 
 import de.makitama.pokerapp.cards.Card;
+import de.makitama.pokerapp.ranking.Rank;
 import de.makitama.pokerapp.services.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-public class Pair {
+public class Pair implements Rule{
 
     /*
      * 2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the
@@ -20,6 +22,11 @@ public class Pair {
 
     static List<Card> getPairCards(List<Card> hand) {
         return Service.getCardsWithDuplicatesValues(hand, 2);
+    }
+
+    @Override
+    public Optional<Rank> rank(List<Card> hand) {
+        return Optional.empty();
     }
     //TODO ranked by cards not forming pair
 }
