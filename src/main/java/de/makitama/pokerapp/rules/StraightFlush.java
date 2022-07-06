@@ -1,10 +1,9 @@
 package de.makitama.pokerapp.rules;
 
 import de.makitama.pokerapp.cards.Card;
+import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,13 +12,18 @@ import java.util.Optional;
  */
 public class StraightFlush implements Rule {
 
-    public static boolean isStraightFlush(List<Card> hand) {
+    private static boolean isStraightFlush(List<Card> hand) {
+        if (hand.stream().map(Card::getSuit).distinct().count() != 1) {
+            return false;
+        }
 
-        //TODO straightFlush
+        for (int i = 1; i < hand.size(); i++) {
+            if (hand.get(i - 1).getValue().getRating() != hand.get(i).getValue().getRating() - 1) {
+                return false;
+            }
+        }
 
-        Collections.min(hand, Comparator.comparing(Card::getValue));
-        //Flush.isFlush(hand) && hand.stream().
-        return false;
+        return true;
     }
 
 
@@ -28,6 +32,13 @@ public class StraightFlush implements Rule {
         if (!isStraightFlush(hand)) {
             return Optional.empty();
         }
-        //TODO
+
+        // @formatter:off
+        return Optional.of(Rank.initiateRankingFor(HandRankings.STRAIGHT_FLUSH)
+                               .addRating(hand.get(hand.size() - 1).getValue().getRating())
+                               .build());
+        // @formatter:on
     }
+
+    //TODO TESTING
 }

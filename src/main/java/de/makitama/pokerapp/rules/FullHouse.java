@@ -1,9 +1,11 @@
 package de.makitama.pokerapp.rules;
 
+import de.makitama.pokerapp.RankingUtils;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,17 +15,27 @@ import java.util.Optional;
  */
 public class FullHouse implements Rule {
 
-    private final HandRankings handRanking = HandRankings.FULL_HOUSE;
-
-    private boolean isPair(List<Card> hand) {
-        //TODO
-        return false;
-    }
-
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-        //TODO
-        return Optional.empty();
+
+        List<Card> triple = RankingUtils.findCardsWithSameValue(hand, 3);
+        if (triple == null) {
+            return Optional.empty();
+        }
+        List<Card> localHand = new ArrayList<>(hand);
+        localHand.removeAll(triple);
+        List<Card> pair = RankingUtils.findCardsWithSameValue(localHand, 2);
+
+        if (pair == null) {
+            return Optional.empty();
+        }
+
+        // @formatter:off
+        return Optional.of(Rank.initiateRankingFor(HandRankings.FULL_HOUSE)
+                               .addRating(triple.get(0).getValue().getRating())
+                               .build());
+        // @formatter:on
     }
+
+    //TODO TESTING
 }
