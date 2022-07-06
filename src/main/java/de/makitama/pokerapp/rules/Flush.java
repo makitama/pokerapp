@@ -1,9 +1,9 @@
 package de.makitama.pokerapp.rules;
 
+import de.makitama.pokerapp.RankingUtils;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
-import de.makitama.pokerapp.services.RankingUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,19 +14,14 @@ import java.util.Optional;
  */
 public class Flush implements Rule {
 
-    private final HandRankings handRanking = HandRankings.FLUSH;
-
-    public static boolean isFlush(List<Card> hand) {
-        return hand.isEmpty() || hand.stream().map(Card::getSuit).distinct().count() <= 1;
-    }
-
     @Override
     public Optional<Rank> rank(List<Card> hand) {
 
-        if (!isFlush(hand)) {
+        if (hand.stream().map(Card::getSuit).distinct().count() != 1) {
             return Optional.empty();
         }
-        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
+
+        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(HandRankings.FLUSH);
         RankingUtils.reverseCards(hand).forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
         return Optional.of(rankBuilder.build());
 

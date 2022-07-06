@@ -13,13 +13,14 @@ import java.util.Optional;
  */
 public class Straight implements Rule {
 
-    //TODO straight
-
-    private final HandRankings handRanking = HandRankings.STRAIGHT;
-
     private boolean isStraight(List<Card> hand) {
-        //TODO
-        return false;
+        for (int i = 1; i < hand.size(); i++) {
+            if (hand.get(i - 1).getValue().getRating() != hand.get(i).getValue().getRating() - 1) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -27,8 +28,13 @@ public class Straight implements Rule {
         if (!isStraight(hand)) {
             return Optional.empty();
         }
-        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-        return Optional.of(rankBuilder.build());
+
+        // @formatter:off
+        return Optional.of(Rank.initiateRankingFor(HandRankings.STRAIGHT)
+                               .addRating(hand.get(hand.size() - 1).getValue().getRating())
+                               .build());
+        // @formatter:on
     }
 
+    //TODO TESTING
 }

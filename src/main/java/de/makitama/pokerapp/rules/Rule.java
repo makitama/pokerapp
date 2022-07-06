@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface Rule {
 
     /**
-     * @param hand the list of cards that should be ranked
+     * @param hand the list of cards that should be ranked; card values must be in ascending sort order
      * @return Optional of Rank, initialized for argument hand on specific Rule class
      */
     Optional<Rank> rank(List<Card> hand);

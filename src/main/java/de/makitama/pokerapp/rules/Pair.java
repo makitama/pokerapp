@@ -1,9 +1,10 @@
 package de.makitama.pokerapp.rules;
 
+import de.makitama.pokerapp.RankingUtils;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
-import de.makitama.pokerapp.services.RankingUtils;
+import de.makitama.pokerapp.ranking.Rank.RankBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,29 +18,20 @@ import java.util.Optional;
 
 public class Pair implements Rule {
 
-    private final HandRankings handRanking = HandRankings.PAIR;
-
-    static boolean isPair(List<Card> hand) {
-        return RankingUtils.isDistinctCardValueEqualsToGivenAmount(hand, 4);
-    }
-
-    static List<Card> getPairCards(List<Card> hand) {
-        return RankingUtils.getCardsWithDuplicateValues(hand, 2);
-    }
-
-    private int getValueOfPair(List<Card> pairCards) {
-        return pairCards.stream().mapToInt(card -> card.getValue().getRating()).sum();
+    private List<Card> getPairCards(List<Card> hand) {
+        return RankingUtils.findCardsWithSameValue(hand, 2);
     }
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        if (!isPair(hand)) {
+        List<Card> pairCards = getPairCards(hand);
+
+        if (pairCards == null) {
             return Optional.empty();
         }
 
-        Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(handRanking);
-        List<Card> pairCards = getPairCards(hand);
-        rankBuilder.addRating(getValueOfPair(pairCards));
+        RankBuilder rankBuilder = Rank.initiateRankingFor(HandRankings.PAIR);
+        rankBuilder.addRating(pairCards.get(0).getValue().getRating());
         RankingUtils.reverseCards(hand).stream().filter(card -> !pairCards.contains(card))
                 .forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
 

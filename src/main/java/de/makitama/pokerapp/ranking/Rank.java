@@ -7,11 +7,12 @@ import java.util.List;
 public class Rank {
 
     private final HandRankings type;
-    private final List<Integer> ratings = new ArrayList<>();
+
+    private final List<Integer> ratings;
 
     private Rank(RankBuilder rankBuilder) {
         this.type = rankBuilder.type;
-        this.ratings.addAll(rankBuilder.ratings);
+        this.ratings = List.copyOf(rankBuilder.ratings);
     }
 
     public static RankBuilder initiateRankingFor(HandRankings type) {
@@ -33,11 +34,11 @@ public class Rank {
     }
 
     public int compareRanks(Rank rank) {
-        return this.type.compareTo(rank.type);
+        return Integer.compare(type.getRating(), rank.type.getRating());
     }
 
     public int compareValues(Rank rank) {
-        Iterator<Integer> thisIterater = this.ratings.iterator();
+        Iterator<Integer> thisIterater = ratings.iterator();
         Iterator<Integer> argumentIterater = rank.ratings.iterator();
 
         while (thisIterater.hasNext()) {

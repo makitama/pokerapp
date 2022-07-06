@@ -3,13 +3,14 @@ package de.makitama.pokerapp.ranking;
 import de.makitama.pokerapp.cards.Card;
 import de.makitama.pokerapp.rules.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 public class Ranker {
 
-    public final HashMap<HandRankings, Rule> rules = new HashMap<>();
+    private final HashMap<HandRankings, Rule> rules = new HashMap<>();
 
     public Ranker() {
         rules.put(HandRankings.HIGH_CARD, new HighCard());
@@ -31,6 +32,7 @@ public class Ranker {
         String equal = "Both Hands are of equal worth";
         String firstHand = "First hand is winner! " + hand1.toString() + ", with Rank: " + rankHand1.getType();
         String secondHand = "Second hand is winner! " + hand2.toString() + ", with Rank: " + rankHand2.getType();
+
         return (winner == 0 ? equal : (winner == 1 ? firstHand : secondHand));
     }
 
@@ -38,17 +40,15 @@ public class Ranker {
      * @param hand hand that should be ranked
      * @return the highest possible Ranking for this specific hand of Cards, by applying the highest Rule that is possible.
      */
-    private Rank rankHand(List<Card> hand) {
+    public Rank rankHand(List<Card> hand) {
 
-        Ranker ranker = new Ranker();
-        HandRankings[] values = HandRankings.values();
-        for (int i = values.length - 1; i >= 0; i--) {
-            Optional<Rank> rank = ranker.rules.get(values[i]).rank(hand);
-            if (rank.isPresent()) {
-                return rank.get();
-            }
-        }
-        throw new IllegalArgumentException("Something went terribly wrong. No Rule could be applied!");
+        // @formatter:off
+        return Arrays.stream(HandRankings.values())
+                .map(hr -> rules.get(hr).rank(hand))
+                .flatMap(Optional::stream)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Something went terribly wrong. No Rule could be applied!"));
+        // @formatter:on
     }
 
 
