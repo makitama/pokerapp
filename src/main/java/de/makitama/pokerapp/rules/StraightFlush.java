@@ -40,5 +40,4 @@ public class StraightFlush implements Rule {
         // @formatter:on
     }
 
-    //TODO TESTING
 }

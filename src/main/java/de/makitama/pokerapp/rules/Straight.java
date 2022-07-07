@@ -36,5 +36,4 @@ public class Straight implements Rule {
         // @formatter:on
     }
 
-    //TODO TESTING
 }

@@ -37,5 +37,4 @@ public class FullHouse implements Rule {
         // @formatter:on
     }
 
-    //TODO TESTING
 }

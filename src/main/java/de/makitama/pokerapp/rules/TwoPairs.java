@@ -49,5 +49,4 @@ public class TwoPairs implements Rule {
                                .build());
         // @formatter:on
     }
-    //TODO TESTING
 }
