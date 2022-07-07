@@ -16,14 +16,14 @@ public enum CardValue {
     _K(13),
     _A(14);
 
-    public final int value;
+    public final int rating;
 
-    CardValue(int value) {
-        this.value = value;
+    CardValue(int rating) {
+        this.rating = rating;
     }
 
     public int getRating() {
-        return value;
+        return rating;
     }
 
 }

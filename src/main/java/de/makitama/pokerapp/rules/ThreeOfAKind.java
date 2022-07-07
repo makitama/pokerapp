@@ -14,13 +14,9 @@ import java.util.Optional;
  */
 public class ThreeOfAKind implements Rule {
 
-    private static List<Card> getCardsOfTriple(List<Card> hand) {
-        return RankingUtils.findCardsWithSameValue(hand, 3);
-    }
-
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        List<Card> cardsOfTriple = getCardsOfTriple(hand);
+        List<Card> cardsOfTriple = RankingUtils.findCardsWithSameValue(hand, 3);
 
         if (cardsOfTriple == null) {
             return Optional.empty();

@@ -37,7 +37,7 @@ public class Rank {
         return Integer.compare(type.getRating(), rank.type.getRating());
     }
 
-    public int compareValues(Rank rank) {
+    private int compareValues(Rank rank) {
         Iterator<Integer> thisIterater = ratings.iterator();
         Iterator<Integer> argumentIterater = rank.ratings.iterator();
 

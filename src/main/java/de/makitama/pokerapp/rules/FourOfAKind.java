@@ -13,13 +13,9 @@ import java.util.Optional;
  */
 public class FourOfAKind implements Rule {
 
-    private static List<Card> getCardsForQuadruple(List<Card> hand) {
-        return RankingUtils.findCardsWithSameValue(hand, 4);
-    }
-
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-        List<Card> cardsForQuadruple = getCardsForQuadruple(hand);
+        List<Card> cardsForQuadruple = RankingUtils.findCardsWithSameValue(hand, 4);
 
         if (cardsForQuadruple == null) {
             return Optional.empty();
