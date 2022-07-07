@@ -11,6 +11,9 @@ import java.util.Optional;
 public class Ranker {
 
     private final HashMap<HandRankings, Rule> rules = new HashMap<>();
+    private final String equal = "Both hands are of equal worth";
+    private final String firstHand = "First hand is winner!";
+    private final String secondHand = "Second hand is winner!";
 
     public Ranker() {
         rules.put(HandRankings.HIGH_CARD, new HighCard());
@@ -24,16 +27,31 @@ public class Ranker {
         rules.put(HandRankings.STRAIGHT_FLUSH, new StraightFlush());
     }
 
-    public String chooseWinnerOfTwoHands(List<Card> hand1, List<Card> hand2) {
+    /**
+     * Please ensure that the following requirements are fulfilled:
+     * list is sorted in ascending order of values,
+     * list has the size of 5,
+     * list is not null,
+     * list is not empty,
+     *
+     * @param hand1 the first pokerhand that should be compared
+     * @param hand2 the second pokerhand that should be compared
+     * @return String with the chosen winner of the two hand arguments
+     */
+    public String chooseWinner(List<Card> hand1, List<Card> hand2) {
+        int winner = compareTwoHands(hand1, hand2);
+        return (winner == 0 ? equal : (winner == 1 ? firstHand : secondHand));
+    }
+
+
+    public int compareTwoHands(List<Card> hand1, List<Card> hand2) {
+        checkRequirements(hand1);
+        checkRequirements(hand2);
+
         Rank rankHand1 = rankHand(hand1);
         Rank rankHand2 = rankHand(hand2);
 
-        int winner = rankHand1.compareTo(rankHand2);
-        String equal = "Both Hands are of equal worth";
-        String firstHand = "First hand is winner! " + hand1.toString() + ", with Rank: " + rankHand1.getType();
-        String secondHand = "Second hand is winner! " + hand2.toString() + ", with Rank: " + rankHand2.getType();
-
-        return (winner == 0 ? equal : (winner == 1 ? firstHand : secondHand));
+        return rankHand1.compareTo(rankHand2);
     }
 
     /**
@@ -51,5 +69,20 @@ public class Ranker {
         // @formatter:on
     }
 
+    private void checkRequirements(List<Card> hand) {
+        if (hand == null || hand.isEmpty() || hand.size() != 5 || isUnsorted(hand)) {
+            throw new IllegalArgumentException("One List is invalid. Please ensure that all prerequirements are fulfilled.");
+        }
+    }
+
+    private boolean isUnsorted(List<Card> hand) {
+        for (int i = 1; i < hand.size(); i++) {
+            if (hand.get(i - 1).getValue().getRating() > hand.get(i).getValue().getRating()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }
