@@ -1,43 +1,37 @@
 package de.makitama.pokerapp.rules;
 
-import de.makitama.pokerapp.cards.Card;
-import de.makitama.pokerapp.cards.CardSuit;
-import de.makitama.pokerapp.cards.CardValue;
 import de.makitama.pokerapp.ranking.HandRankings;
 import de.makitama.pokerapp.ranking.Rank;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
+import static de.makitama.pokerapp.PredefinedCards.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 class FourOfAKindTest {
 
-    @Mock
-    Rank rank;
-
-    Card card1 = new Card(CardSuit.C, CardValue._8);
-    Card card2 = new Card(CardSuit.H, CardValue._8);
-    Card card3 = new Card(CardSuit.D, CardValue._8);
-    Card card4 = new Card(CardSuit.S, CardValue._8);
-    Card card5 = new Card(CardSuit.C, CardValue._3);
-
-    private final List<Card> hand = List.of(card5, card2, card1, card3, card4);
+    private final FourOfAKind fourOfAKind = new FourOfAKind();
 
     @Test
-    void testRank() {
-        assertNotNull(rank);
-        when(rank.getType()).thenReturn(HandRankings.FOUR_OF_A_KIND);
-        when(rank.getRatings()).thenReturn(List.of(card4.getValue().getRating() * 4));
-        FourOfAKind fourOfAKind = new FourOfAKind();
+    void testRank_fourOfAKind() {
+        Optional<Rank> optionalRank = fourOfAKind.rank(List.of(CARD_S2, CARD_C2, CARD_D2, CARD_H2, CARD_D9));
 
-        assertTrue(fourOfAKind.rank(hand).isPresent());
-        assertEquals(rank.getRatings(), fourOfAKind.rank(hand).get().getRatings());
-        assertEquals(rank.getType(), fourOfAKind.rank(hand).get().getType());
+        assertNotNull(optionalRank);
+        assertTrue(optionalRank.isPresent());
+
+        Rank rank = optionalRank.get();
+
+        assertEquals(HandRankings.FOUR_OF_A_KIND, rank.getType());
+        assertEquals(List.of(2), rank.getRatings());
+    }
+
+    @Test
+    void testRank_noFourOfAKind() {
+        Optional<Rank> optionalRank = fourOfAKind.rank(List.of(CARD_C2, CARD_S2, CARD_H2, CARD_D3, CARD_SQ));
+
+        assertNotNull(optionalRank);
+        assertTrue(optionalRank.isEmpty());
     }
 }

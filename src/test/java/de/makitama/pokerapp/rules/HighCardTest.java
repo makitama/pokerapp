@@ -1,29 +1,31 @@
 package de.makitama.pokerapp.rules;
 
-import de.makitama.pokerapp.cards.Card;
-import de.makitama.pokerapp.cards.CardSuit;
-import de.makitama.pokerapp.cards.CardValue;
+import de.makitama.pokerapp.ranking.HandRankings;
+import de.makitama.pokerapp.ranking.Rank;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static de.makitama.pokerapp.PredefinedCards.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HighCardTest {
 
+    private final HighCard highCard = new HighCard();
+
     @Test
-    void highestCardIsReturned() {
-        Card card1 = new Card(CardSuit.C, CardValue._4);
-        Card card2 = new Card(CardSuit.C, CardValue._2);
-        Card card3 = new Card(CardSuit.H, CardValue._8);
-        Card card4 = new Card(CardSuit.H, CardValue._K);
-        Card card5 = new Card(CardSuit.C, CardValue._3);
+    void testRank_HighCard() {
+        Optional<Rank> optionalRank = highCard.rank(List.of(CARD_S2, CARD_S5, CARD_C7, CARD_C8, CARD_D9));
 
-        final List<Card> hand = List.of(card1, card2, card3, card4, card5);
+        assertNotNull(optionalRank);
+        assertTrue(optionalRank.isPresent());
 
-        assertEquals(card4, HighCard.getHighestCard(hand));
-        assertNotEquals(card2, HighCard.getHighestCard(hand));
+        Rank rank = optionalRank.get();
+
+        assertEquals(HandRankings.HIGH_CARD, rank.getType());
+        assertEquals(List.of(9, 8, 7, 5, 2), rank.getRatings());
     }
+
 
 }

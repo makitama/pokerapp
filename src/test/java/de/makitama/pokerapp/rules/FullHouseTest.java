@@ -10,26 +10,26 @@ import java.util.Optional;
 import static de.makitama.pokerapp.PredefinedCards.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ThreeOfAKindTest {
+class FullHouseTest {
 
-    private final ThreeOfAKind threeOfAKind = new ThreeOfAKind();
+    private final FullHouse fullHouse = new FullHouse();
 
     @Test
-    void testRank_ThreeOfAKind() {
-        Optional<Rank> optionalRank = threeOfAKind.rank(List.of(CARD_D7, CARD_S7, CARD_C7, CARD_C8, CARD_D9));
+    void testRank_FullHouse() {
+        Optional<Rank> optionalRank = fullHouse.rank(List.of(CARD_S7, CARD_D7, CARD_C7, CARD_C8, CARD_D8));
 
         assertNotNull(optionalRank);
         assertTrue(optionalRank.isPresent());
 
         Rank rank = optionalRank.get();
 
-        assertEquals(HandRankings.THREE_OF_A_KIND, rank.getType());
+        assertEquals(HandRankings.FULL_HOUSE, rank.getType());
         assertEquals(List.of(7), rank.getRatings());
     }
 
     @Test
-    void testRank_NoThreeOfAKind() {
-        Optional<Rank> optionalRank = threeOfAKind.rank(List.of(CARD_S2, CARD_S4, CARD_C7, CARD_C8, CARD_D9));
+    void testRank_noFullHouse() {
+        Optional<Rank> optionalRank = fullHouse.rank(List.of(CARD_S2, CARD_S4, CARD_C7, CARD_C8, CARD_D9));
 
         assertNotNull(optionalRank);
         assertTrue(optionalRank.isEmpty());
