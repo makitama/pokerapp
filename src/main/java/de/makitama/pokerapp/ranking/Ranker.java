@@ -70,7 +70,7 @@ public class Ranker {
     }
 
     private void checkRequirements(List<Card> hand) {
-        if (hand == null || hand.isEmpty() || hand.size() != 5 || isUnsorted(hand)) {
+        if (hand == null || hand.size() != 5 || isUnsorted(hand)) {
             throw new IllegalArgumentException("One List is invalid. Please ensure that all prerequirements are fulfilled.");
         }
     }
