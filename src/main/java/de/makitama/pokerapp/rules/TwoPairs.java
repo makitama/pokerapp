@@ -19,7 +19,6 @@ public class TwoPairs implements Rule {
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-
         List<Card> pair1 = RankingUtils.findCardsWithSameValue(hand, 2);
 
         if (pair1 == null) {

@@ -59,7 +59,6 @@ public class Ranker {
      * @return the highest possible Ranking for this specific hand of Cards, by applying the highest Rule that is possible.
      */
     public Rank rankHand(List<Card> hand) {
-
         // @formatter:off
         return Arrays.stream(HandRankings.values())
                 .map(hr -> rules.get(hr).rank(hand))
@@ -81,7 +80,6 @@ public class Ranker {
                 return true;
             }
         }
-
         return false;
     }
 

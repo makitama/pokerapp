@@ -17,7 +17,6 @@ public class FullHouse implements Rule {
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-
         List<Card> triple = RankingUtils.findCardsWithSameValue(hand, 3);
         if (triple == null) {
             return Optional.empty();

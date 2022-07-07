@@ -5,7 +5,6 @@ public class Card {
     private final CardSuit cardSuit;
     private final CardValue value;
 
-
     public Card(CardSuit cardSuit, CardValue value) {
         this.cardSuit = cardSuit;
         this.value = value;

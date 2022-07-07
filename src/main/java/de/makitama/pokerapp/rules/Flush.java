@@ -16,7 +16,6 @@ public class Flush implements Rule {
 
     @Override
     public Optional<Rank> rank(List<Card> hand) {
-
         if (hand.stream().map(Card::getSuit).distinct().count() != 1) {
             return Optional.empty();
         }
@@ -24,7 +23,6 @@ public class Flush implements Rule {
         Rank.RankBuilder rankBuilder = Rank.initiateRankingFor(HandRankings.FLUSH);
         RankingUtils.reverseCards(hand).forEach(card -> rankBuilder.addRating(card.getValue().getRating()));
         return Optional.of(rankBuilder.build());
-
     }
 
 }

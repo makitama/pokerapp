@@ -19,7 +19,6 @@ public class Straight implements Rule {
                 return false;
             }
         }
-
         return true;
     }
 

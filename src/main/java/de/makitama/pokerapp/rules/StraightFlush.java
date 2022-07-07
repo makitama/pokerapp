@@ -22,7 +22,6 @@ public class StraightFlush implements Rule {
                 return false;
             }
         }
-
         return true;
     }
 

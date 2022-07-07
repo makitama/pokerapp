@@ -17,7 +17,6 @@ class RankerTest {
 
     @Test
     public void testRankHand() {
-
         List<Card> HighCard_hand = List.of(CARD_S2, CARD_C5, CARD_D8, CARD_S9, CARD_HK);
 
         assertEquals(HandRankings.HIGH_CARD, ranker.rankHand(HighCard_hand).getType());
