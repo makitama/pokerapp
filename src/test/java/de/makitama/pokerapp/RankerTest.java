@@ -37,17 +37,17 @@ class RankerTest {
 
     @Test
     void testCompareTwoHands_ReturnsFirstHand() {
-        List<Card> Straight = List.of(CARD_H3, CARD_D4, CARD_H5, CARD_H6, CARD_H7);
-        List<Card> HighCard = List.of(CARD_S2, CARD_C5, CARD_D8, CARD_S9, CARD_HK);
-        assertEquals(1, ranker.compareTwoHands(Straight, HighCard));
+        List<Card> straight = List.of(CARD_H3, CARD_D4, CARD_H5, CARD_H6, CARD_H7);
+        List<Card> highCard = List.of(CARD_S2, CARD_C5, CARD_D8, CARD_S9, CARD_HK);
+        assertEquals(1, ranker.compareTwoHands(straight, highCard));
     }
 
     @Test
     void testChooseWinner_FirstHandWins() {
         String firstHand = "First hand is winner!";
-        List<Card> Straight = List.of(CARD_H3, CARD_D4, CARD_H5, CARD_H6, CARD_H7);
-        List<Card> HighCard = List.of(CARD_S2, CARD_C5, CARD_D8, CARD_S9, CARD_HK);
-        assertEquals(firstHand, ranker.chooseWinner(Straight, HighCard));
+        List<Card> straight = List.of(CARD_H3, CARD_D4, CARD_H5, CARD_H6, CARD_H7);
+        List<Card> highCard = List.of(CARD_S2, CARD_C5, CARD_D8, CARD_S9, CARD_HK);
+        assertEquals(firstHand, ranker.chooseWinner(straight, highCard));
     }
 
     @Test
